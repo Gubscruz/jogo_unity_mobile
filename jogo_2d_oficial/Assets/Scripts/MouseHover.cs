@@ -1,23 +1,18 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class MouseHover : MonoBehaviour
+public class MouseHover : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     private Vector3 originalScale;
-    public Texture2D originalCursor, hoverCursor;
     private void Start()
     {
         originalScale = transform.localScale;
     }
-    public void OnMouseEnter()
+    public void OnPointerDown(PointerEventData eventData)
     {
-        // Change the cursor to the hover cursor
-        Cursor.SetCursor(hoverCursor, Vector2.zero, CursorMode.Auto);
-        transform.localScale = originalScale * 1.1f;
+        transform.localScale = originalScale * 0.9f;
     }
-    public void OnMouseExit()
-    {
-        // Change the cursor back to the original cursor
-        Cursor.SetCursor(originalCursor, Vector2.zero, CursorMode.Auto);
-        transform.localScale = originalScale;
+    public void OnPointerUp(PointerEventData eventData) {
+        transform.localScale = originalScale;      
     }
 }
