@@ -16,7 +16,6 @@ public class TypewriterWithEnterPrompt3 : MonoBehaviour
 
     private PuzzleSaver puzzle;
     public AudioClip typeSound; // Som da máquina de escrever
-    public AudioSource audioSource; // Fonte de áudio para digitação
 
 
     void Start()
@@ -53,9 +52,9 @@ public class TypewriterWithEnterPrompt3 : MonoBehaviour
         foreach (char c in fullText)
         {
             textMeshPro.text += c;
-            if (!char.IsWhiteSpace(c) && typeSound != null && audioSource != null)
+            if (!char.IsWhiteSpace(c) && typeSound != null)
             {
-                audioSource.PlayOneShot(typeSound);
+                SfxManager.Instance.Play(typeSound);
             }
             yield return new WaitForSeconds(typingSpeed);
         }
