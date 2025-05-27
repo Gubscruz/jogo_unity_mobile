@@ -368,9 +368,9 @@ MonoBehaviour:
   corHover: {r: 0.5686275, g: 0.45882353, b: 0.45882353, a: 1}
   textoFeedback: {fileID: 148131595}
   avancarBotao: {fileID: 1851673225}
-  audioSource: {fileID: 0}
-  somErro: {fileID: 0}
-  somAcerto: {fileID: 0}
+  audioSource: {fileID: 1096728669}
+  somErro: {fileID: 8300000, guid: ed13cabe9bea96e4992148b3297cfc1e, type: 3}
+  somAcerto: {fileID: 8300000, guid: b1f91a03176ddba438fd40aedc745467, type: 3}
   sequenciaCorreta: 020000000300000000000000
 --- !u!4 &229105699
 Transform:
@@ -1174,7 +1174,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.000030517578, y: 0}
+  m_AnchoredPosition: {x: 0.000061035156, y: 0}
   m_SizeDelta: {x: -0.000061035156, y: -0.00012207031}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1055082390

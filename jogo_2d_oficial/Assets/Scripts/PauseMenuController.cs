@@ -1,8 +1,8 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
+
 
 public class PauseMenuController : MonoBehaviour
 {
@@ -44,10 +44,6 @@ public class PauseMenuController : MonoBehaviour
     {
         Debug.Log("Saindo do jogo...");
 
-#if UNITY_EDITOR
-        EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
+        SceneManager.LoadScene("Menu");
     }
 }

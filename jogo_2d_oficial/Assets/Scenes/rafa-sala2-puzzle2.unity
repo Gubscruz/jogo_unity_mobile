@@ -464,7 +464,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Avana\xE7ar"
+  m_text: "Avan\xE7ar"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c6987562f6ee79b4ca80a16377135145, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -660,7 +660,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.66200006, y: 0.22333334}
   m_AnchorMax: {x: 0.94558334, y: 0.34333336}
-  m_AnchoredPosition: {x: 11.665558, y: -5.199997}
+  m_AnchoredPosition: {x: 11.665588, y: -5.200012}
   m_SizeDelta: {x: 10.889587, y: 2.880005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &195754171

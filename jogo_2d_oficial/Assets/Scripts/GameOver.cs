@@ -5,6 +5,7 @@ public class GameOver : MonoBehaviour
 
     private PuzzleSaver puzzle;
     private HudVidaController hudController;
+    private PuzzleProgressManager puzzleProgressManager;
     private void Awake()
     {
         puzzle = PuzzleSaver.Instance;
@@ -25,17 +26,18 @@ public class GameOver : MonoBehaviour
         puzzle.puzzle1_sala5 = false;
 
         hudController.ResetarVidas();
+        PuzzleProgressManager.Instance.ResetProgress();
 
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

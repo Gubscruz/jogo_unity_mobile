@@ -13035,7 +13035,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6861575107039890753, guid: 018a18b7f927f4e7297ce22659183e64, type: 3}
       propertyPath: 'requiredPuzzles.Array.data[0]'
-      value: Puzzle2_Sala4
+      value: Puzzle3_Sala4
       objectReference: {fileID: 0}
     - target: {fileID: 6861575107039890753, guid: 018a18b7f927f4e7297ce22659183e64, type: 3}
       propertyPath: 'requiredPuzzles.Array.data[1]'

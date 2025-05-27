@@ -33,7 +33,7 @@ public class TypewriterWithEnterPrompt3 : MonoBehaviour
         // Só permite apertar Enter depois que o texto terminou
         if (typingDone && Input.GetKeyDown(KeyCode.Return))
         {
-            if (!puzzle.entrouSalaSecreta)
+            if (puzzle.entrouSalaSecreta)
             {
                 SceneManager.LoadScene("Fragmento IV");
             }

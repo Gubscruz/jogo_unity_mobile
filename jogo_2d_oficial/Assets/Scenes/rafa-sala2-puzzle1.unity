@@ -1733,9 +1733,9 @@ MonoBehaviour:
   botaoAvancar: {fileID: 556317112}
   textoFeedback: {fileID: 882219214}
   anoMorte: {fileID: 0}
-  audioSource: {fileID: 0}
-  somErro: {fileID: 0}
-  somAcerto: {fileID: 0}
+  audioSource: {fileID: 418605292}
+  somErro: {fileID: 8300000, guid: ed13cabe9bea96e4992148b3297cfc1e, type: 3}
+  somAcerto: {fileID: 8300000, guid: b1f91a03176ddba438fd40aedc745467, type: 3}
 --- !u!1 &1952632546
 GameObject:
   m_ObjectHideFlags: 0

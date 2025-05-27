@@ -31,6 +31,8 @@ public class Puzzle1_sala5 : MonoBehaviour
 
     private HudVidaController hudController;
 
+    public TextMeshProUGUI textoFeedback2;
+
 
     void Start()
     {
@@ -57,8 +59,8 @@ public class Puzzle1_sala5 : MonoBehaviour
 
         if (TodosDiscosCorretos())
         {
-            audioSource.PlayOneShot(somAcerto);
-            textFeedback.text = "Parabéns!";
+            textFeedback.text = "Parabéns! Você acertou o 1º puzzle!";
+            textFeedback.gameObject.SetActive(true);
             tocar.gameObject.SetActive(true);
             doButton.gameObject.SetActive(true);
             faButton.gameObject.SetActive(true);
@@ -85,33 +87,37 @@ public class Puzzle1_sala5 : MonoBehaviour
 
     public void _do()
     {
-        textFeedback.text = "Não é esse som!";
+        textoFeedback2.text = "Não é esse som!";
         audioSource.PlayOneShot(somErro);
-        textFeedback.gameObject.SetActive(true);
+        textoFeedback2.gameObject.SetActive(true);
+        hudController.PerderVida();
     }
 
 
     public void _fa()
     {
-        textFeedback.text = "Não é esse som!";
+        textoFeedback2.text = "Não é esse som!";
         audioSource.PlayOneShot(somErro);
-        textFeedback.gameObject.SetActive(true);
+        textoFeedback2.gameObject.SetActive(true);
+        hudController.PerderVida();
     }
 
     public void _re()
     {
-        textFeedback.text = "Esse é o som!";
+        textoFeedback2.text = "Esse é o som!";
         audioSource.PlayOneShot(somAcerto);
-        textFeedback.gameObject.SetActive(true);
+        textoFeedback2.gameObject.SetActive(true);
         botaoAvancar.gameObject.SetActive(true); // Ativa o botão de avançar
+
         
     }
 
     public void _mi()
     {
-        textFeedback.text = "Não é esse som!";
+        textoFeedback2.text = "Não é esse som!";
         audioSource.PlayOneShot(somErro);
-        textFeedback.gameObject.SetActive(true);
+        textoFeedback2.gameObject.SetActive(true);
+        hudController.PerderVida();
     }
 
 

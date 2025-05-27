@@ -2159,9 +2159,9 @@ MonoBehaviour:
   quadro4: {fileID: 264261010}
   botaoAvancar: {fileID: 909791223}
   textoFeedback: {fileID: 879239170}
-  audioSource: {fileID: 0}
-  somErro: {fileID: 0}
-  somAcerto: {fileID: 0}
+  audioSource: {fileID: 467952444}
+  somErro: {fileID: 8300000, guid: ed13cabe9bea96e4992148b3297cfc1e, type: 3}
+  somAcerto: {fileID: 8300000, guid: b1f91a03176ddba438fd40aedc745467, type: 3}
 --- !u!1 &1259485657
 GameObject:
   m_ObjectHideFlags: 0

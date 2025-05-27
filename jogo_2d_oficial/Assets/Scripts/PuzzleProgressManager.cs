@@ -14,7 +14,7 @@ public class PuzzleProgressManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); 
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -31,5 +31,10 @@ public class PuzzleProgressManager : MonoBehaviour
         foreach (var id in ids)
             if (!solved.Contains(id)) return false;
         return true;
+    }
+    
+    public void ResetProgress()
+    {
+        solved.Clear();
     }
 }

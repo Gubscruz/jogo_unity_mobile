@@ -24,12 +24,16 @@ public class Puzzle1_salaSecreta : MonoBehaviour
     
     private HudVidaController hudController;
 
+    public AudioSource audioSource;
+    public AudioClip somErro;
+    public AudioClip somAcerto;
 
 
     public void Start()
 
     {
         hudController = HudVidaController.Instance;
+        puzzle = PuzzleSaver.Instance; // Obtém a instância do PuzzleSaver
         if (puzzle.puzzle1_salaSecreta)
         {
             textoFeedback.gameObject.SetActive(false); // Desativa o feedback de resposta incorreta
@@ -105,6 +109,7 @@ public class Puzzle1_salaSecreta : MonoBehaviour
         // Verifica se ambos os puzzles foram resolvidos
         if (personResolved && symbolResolved)
         {
+            audioSource.PlayOneShot(somAcerto); // Toca o som de acerto
             Debug.Log("Ambos os puzzles foram resolvidos corretamente!");
             textoFeedback.text = "Correto!"; // Atualiza o feedback de resposta correta
             textoFeedback.gameObject.SetActive(true); // Ativa o feedback de resposta correta
@@ -112,18 +117,21 @@ public class Puzzle1_salaSecreta : MonoBehaviour
         }
         else if (personResolved)
         {
+            audioSource.PlayOneShot(somErro); // Toca o som de erro
             hudController.PerderVida();
             textoFeedback.text = "Lembre-se de ordenar os simbolos tambem"; // Atualiza o feedback de resposta incorreta
             textoFeedback.gameObject.SetActive(true); // Ativa o feedback de resposta incorreta
         }
         else if (symbolResolved)
         {
+            audioSource.PlayOneShot(somErro); // Toca o som de erro
             hudController.PerderVida();
             textoFeedback.text = "Lembre-se de ordenar as pessoas tambem"; // Atualiza o feedback de resposta incorreta
             textoFeedback.gameObject.SetActive(true); // Ativa o feedback de resposta incorreta
         }
         else
         {
+            audioSource.PlayOneShot(somErro); // Toca o som de erro
             hudController.PerderVida();
             textoFeedback.text = "Isso não parece estar certo... Lembre-se tudo na vida tem uma ordem!"; // Atualiza o feedback de resposta incorreta
             textoFeedback.gameObject.SetActive(true); // Ativa o feedback de resposta incorreta
@@ -139,6 +147,8 @@ public class Puzzle1_salaSecreta : MonoBehaviour
     {
         SceneManager.LoadScene("Sala Secreta"); // Volta para a sala 2
         puzzle.puzzle1_salaSecreta = true; // Marca o puzzle como resolvido
+        Debug.Log("Puzzle resolvido!"); // Log para depuração
+        Debug.Log(puzzle.puzzle1_salaSecreta); // Log para depuração
         PuzzleProgressManager.Instance.MarkSolved("Puzzle1_SalaSecreta"); // Marca o puzzle como resolvido no gerenciador de progresso
     }
 
