@@ -29,17 +29,18 @@ public class TypewriterWithEnterPrompt3 : MonoBehaviour
 
     void Update()
     {
-        // Só permite apertar Enter depois que o texto terminou
-        if (typingDone && Input.GetKeyDown(KeyCode.Return))
+        if (!typingDone) return;
+
+        bool enterKey = Input.GetKeyDown(KeyCode.Return);
+        bool clickOrTouch = Input.GetMouseButtonDown(0)
+                         || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began);
+
+        if (enterKey || clickOrTouch)
         {
             if (puzzle.entrouSalaSecreta)
-            {
                 SceneManager.LoadScene("Fragmento IV");
-            }
             else
-            {
                 SceneManager.LoadScene("Final Frag 4");
-            }
         }
     }
 
@@ -52,7 +53,7 @@ public class TypewriterWithEnterPrompt3 : MonoBehaviour
         foreach (char c in fullText)
         {
             textMeshPro.text += c;
-            if (!char.IsWhiteSpace(c) && typeSound != null)
+            if (!char.IsWhiteSpace(c) && typeSound != null && SfxManager.Instance != null)
             {
                 SfxManager.Instance.Play(typeSound);
             }

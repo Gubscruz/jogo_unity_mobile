@@ -27,10 +27,15 @@ public class TypewriterWithEnterPrompt2 : MonoBehaviour
 
     void Update()
     {
-        // Só permite apertar Enter depois que o texto terminou
-        if (typingDone && Input.GetKeyDown(KeyCode.Return))
+        if (!typingDone)
+            return;
+
+        bool enterKey = Input.GetKeyDown(KeyCode.Return);
+        bool clickOrTouch = Input.GetMouseButtonDown(0)
+                         || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began);
+
+        if (enterKey || clickOrTouch)
         {
-            // Troca de cena
             endController.Final();
         }
     }
@@ -44,7 +49,7 @@ public class TypewriterWithEnterPrompt2 : MonoBehaviour
         foreach (char c in fullText)
         {
             textMeshPro.text += c;
-            if (!char.IsWhiteSpace(c) && typeSound != null)
+            if (!char.IsWhiteSpace(c) && typeSound != null && SfxManager.Instance != null)
             {
                 SfxManager.Instance.Play(typeSound);
             }
