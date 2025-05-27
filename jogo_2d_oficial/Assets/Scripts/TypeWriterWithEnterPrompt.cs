@@ -43,9 +43,9 @@ public class TypewriterWithEnterPrompt : MonoBehaviour
         foreach (char c in fullText)
         {
             textMeshPro.text += c;
-            if (!char.IsWhiteSpace(c) && typeSound != null && audioSource != null)
+            if (!char.IsWhiteSpace(c) && typeSound != null)
             {
-                audioSource.PlayOneShot(typeSound);
+                SfxManager.Instance.Play(typeSound);
             }
             yield return new WaitForSeconds(typingSpeed);
         }

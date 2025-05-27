@@ -11,32 +11,35 @@ public class SettingsManager : MonoBehaviour
 
     void Start()
     {
-        // Carrega valores
+        // Música (como você já tem)
         float mVol = PlayerPrefs.GetFloat("musicVolume", 1f);
         bool  mOn  = PlayerPrefs.GetInt("musicOn", 1) == 1;
-        // Atualiza UI
         musicSlider.value = mVol;
         musicToggle.isOn  = mOn;
+        SoundTrack.Instance.SetVolume(mVol);
+        SoundTrack.Instance.Enable(mOn);
 
-        // Aplica ao SoundTrack singleton
-        if (SoundTrack.Instance != null)
-        {
-            SoundTrack.Instance.SetVolume(mVol);
-            SoundTrack.Instance.Enable(mOn);
-        }
+        musicSlider.onValueChanged.AddListener(v => {
+            PlayerPrefs.SetFloat("musicVolume", v);
+            SoundTrack.Instance.SetVolume(v);
+        });
+        musicToggle.onValueChanged.AddListener(on => {
+            PlayerPrefs.SetInt("musicOn", on?1:0);
+            SoundTrack.Instance.Enable(on);
+        });
 
-        // Conecta callbacks
-        musicSlider.onValueChanged.AddListener(SetMusicVolume);
-        musicToggle.onValueChanged.AddListener(SetMusicEnabled);
+        // EFEITOS
+        // Inicializa o slider/toggle de SFX lendo do PlayerPrefs
+        sfxSlider.value = PlayerPrefs.GetFloat("sfxVolume", 1f);
+        sfxToggle.isOn  = PlayerPrefs.GetInt("sfxOn", 1) == 1;
 
-        // (deixe os SFX do jeito que estava ou, se não tiver SFXManager,
-        // comente/remova essa parte até você criar um sistema de efeitos)
-        float sVol = PlayerPrefs.GetFloat("sfxVolume", 1f);
-        bool  sOn  = PlayerPrefs.GetInt( "sfxOn", 1) == 1;
-        sfxSlider.value = sVol;
-        sfxToggle.isOn  = sOn;
-        sfxSlider.onValueChanged.AddListener(SetSfxVolume);
-        sfxToggle.onValueChanged.AddListener(SetSfxEnabled);
+        // Conecta ao SfxManager
+        sfxSlider.onValueChanged.AddListener(v => {
+            SfxManager.Instance.SetVolume(v);
+        });
+        sfxToggle.onValueChanged.AddListener(on => {
+            SfxManager.Instance.SetEnabled(on);
+        });
     }
 
     public void SetMusicVolume(float vol)
