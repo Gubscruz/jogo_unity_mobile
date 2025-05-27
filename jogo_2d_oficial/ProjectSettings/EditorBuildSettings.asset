@@ -27,7 +27,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Sala I.unity
     guid: db2c198702d943a459d510206a4182e1
   - enabled: 1
-    path: Assets/Scenes/Config - gubs.unity
+    path: Assets/Scenes/Config.unity
     guid: f72b114089ec2ff4faa7cc0ef6065b15
   - enabled: 1
     path: Assets/Scenes/Sala III.unity
