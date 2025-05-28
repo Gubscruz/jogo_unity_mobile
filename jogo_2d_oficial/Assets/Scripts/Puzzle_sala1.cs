@@ -13,7 +13,7 @@ public class Puzzle_Sala1 : MonoBehaviour
 
     private string respostaCorreta = "7513";
     public GameObject painelPuzzle;
-    
+
     public AudioSource audioSource;
 
     public AudioClip somErro;
@@ -85,6 +85,13 @@ public class Puzzle_Sala1 : MonoBehaviour
         puzzle.puzzle1_sala1 = true;
         PuzzleProgressManager.Instance.MarkSolved("Puzzle1_Sala1");
         SceneManager.LoadScene("Sala I"); // Volta para a cena inicial
+    }
+
+
+    public void Dicas()
+    {
+        //load anuncio e depois cena de dicas
+        
     }
 }
  
