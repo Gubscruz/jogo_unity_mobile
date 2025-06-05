@@ -1144,6 +1144,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2687964295573580656, guid: 473fdee4141c94b49bc853dd2164d120, type: 3}
+      propertyPath: puzzle
+      value: puzzle1_sala3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2687964295573580656, guid: 473fdee4141c94b49bc853dd2164d120, type: 3}
+      propertyPath: 'dicas.Array.data[0]'
+      value: "Dica 1: O espelhos s\xE3o conhecidos por inverter tamb\xE9m"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2687964295573580656, guid: 473fdee4141c94b49bc853dd2164d120, type: 3}
+      propertyPath: 'dicas.Array.data[1]'
+      value: "Dica 2: A sua resposta deve ser um n\xFAmero \xFAnico"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2687964295573580656, guid: 473fdee4141c94b49bc853dd2164d120, type: 3}
+      propertyPath: 'dicas.Array.data[2]'
+      value: 'Dica 3: Use somente os minutos para responder'
+      objectReference: {fileID: 0}
     - target: {fileID: 8646307346475478568, guid: 473fdee4141c94b49bc853dd2164d120, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1326,6 +1342,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: dicas 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8092359150204719650, guid: 3cb48daa7c2c26e469b56309c3d4e8c8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1490510158}
+    - target: {fileID: 8092359150204719650, guid: 3cb48daa7c2c26e469b56309c3d4e8c8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Dicas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8092359150204719650, guid: 3cb48daa7c2c26e469b56309c3d4e8c8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Puzzel1_sala3, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1502,7 +1530,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1286129019
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2873,7 +2901,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2120177471
 RectTransform:
   m_ObjectHideFlags: 0

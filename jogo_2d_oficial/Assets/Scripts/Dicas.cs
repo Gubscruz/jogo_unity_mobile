@@ -20,11 +20,11 @@ public static class Dicas
         { "puzzle1_sala1", new DicaInfo(3, 0) },
         { "puzzle1_sala2", new DicaInfo(4, 0) },
         { "puzzle2_sala2", new DicaInfo(4, 0) },
-        { "puzzle1_sala3", new DicaInfo(5, 0) },
-        { "puzzle2_sala3", new DicaInfo(5, 0) },
-        { "puzzle2_sala4", new DicaInfo(5, 0) },
-        { "puzzle3_sala4", new DicaInfo(5, 0) },
+        { "puzzle1_sala3", new DicaInfo(3, 0) },
+        { "puzzle2_sala3", new DicaInfo(4, 0) },
+        { "puzzle2_sala4", new DicaInfo(4, 0) },
+        { "puzzle3_sala4", new DicaInfo(3, 0) },
         { "puzzle1_sala5", new DicaInfo(5, 0) },
-        { "puzzle1_salaSecreta", new DicaInfo(5, 0) }
+        { "puzzle1_salaSecreta", new DicaInfo(4, 0) }
     };
 }

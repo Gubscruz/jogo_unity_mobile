@@ -32,6 +32,8 @@ public class Puzzle2_sala4 : MonoBehaviour
 
     private HudVidaController hudController;
 
+    public DicasController dicasController; // Referência ao controlador de dicas
+
     void Start()
     {
         puzzle = PuzzleSaver.Instance;
@@ -216,6 +218,11 @@ public class Puzzle2_sala4 : MonoBehaviour
         SceneManager.LoadScene("Sala IV"); // Volta para a cena inicial
         // Aqui você pode adicionar a lógica para voltar ao jogo, como fechar o painel do puzzle
         Debug.Log("Voltar para a parte anterior do jogo!");
+    }
+
+    public void Dicas()
+    {
+        dicasController.ShowDica(); 
     }
 
 
