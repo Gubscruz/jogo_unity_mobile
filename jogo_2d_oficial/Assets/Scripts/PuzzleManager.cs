@@ -7,7 +7,7 @@ public class PuzzleManager : MonoBehaviour
 {
     private Slot[] slots;
     public GameObject panel; // Referência ao painel onde os slots estão localizados
-    
+
     public GameObject botaoAvancar; // Referência ao botão de fechar o puzzle
 
     public TextMeshProUGUI textoFeedback; // Referência ao texto de feedback
@@ -15,11 +15,13 @@ public class PuzzleManager : MonoBehaviour
     public TextMeshProUGUI anoMorte; // Referência ao texto de instruções
 
     private PuzzleSaver puzzle;
-    
+
     public AudioSource audioSource; // Referência ao AudioSource
     public AudioClip somErro; // Referência ao som de erro
     public AudioClip somAcerto; // Referência ao som de acerto
     private HudVidaController hudController;
+
+    public DicasController dicasController; // Referência ao controlador de dicas
 
     public void Start()
     {
@@ -73,14 +75,21 @@ public class PuzzleManager : MonoBehaviour
     public void Voltar()
     {
         SceneManager.LoadScene("Sala II"); // Volta para a cena inicial
-                
+
     }
 
-    public void Avancar(){
+    public void Avancar()
+    {
         puzzle.puzzle1_sala2 = true;
         SceneManager.LoadScene("Sala II"); // Volta para a cena inicial
         PuzzleProgressManager.Instance.MarkSolved("Puzzle1_Sala2");
         // Aqui você pode adicionar a lógica para avançar no jogo, como abrir uma porta ou trocar de cena
         Debug.Log("Avançar para a próxima parte do jogo!");
+    }
+
+    public void Dicas()
+    {
+        Debug.Log("Exibindo dicas para o puzzle atual");
+        dicasController.ShowDica(); // Chama o método para exibir a dica
     }
 }

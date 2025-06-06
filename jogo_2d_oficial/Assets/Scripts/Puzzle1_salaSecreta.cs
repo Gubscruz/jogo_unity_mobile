@@ -28,6 +28,12 @@ public class Puzzle1_salaSecreta : MonoBehaviour
     public AudioClip somErro;
     public AudioClip somAcerto;
 
+    public DicasController dicasController; // Referência ao controlador de dicas
+    public void DicasShow()
+    {
+        dicasController.ShowDica(); // Chama o método para mostrar a dica
+    }
+
 
     public void Start()
 

@@ -30,6 +30,14 @@ public class Puzzle3_sala4 : MonoBehaviour
 
     private HudVidaController hudController;
 
+
+    public DicasController dicasController; // Referência ao controlador de dicas
+
+    public void Dicas()
+    {
+        dicasController.ShowDica();
+    }
+
     void Start()
     {
         puzzle = PuzzleSaver.Instance;

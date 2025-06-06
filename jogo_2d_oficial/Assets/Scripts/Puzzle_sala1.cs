@@ -22,6 +22,10 @@ public class Puzzle_Sala1 : MonoBehaviour
 
     private HudVidaController hudController;
 
+    public DicasController dicasController;
+
+     
+
     public void Start()
     {
         puzzle = PuzzleSaver.Instance;
@@ -90,8 +94,7 @@ public class Puzzle_Sala1 : MonoBehaviour
 
     public void Dicas()
     {
-        //load anuncio e depois cena de dicas
-        
+        dicasController.ShowDica();
     }
 }
  

@@ -25,13 +25,20 @@ public class Puzzle1_sala5 : MonoBehaviour
     public Button tocar;
 
     public Button doButton;
-    public Button faButton; 
+    public Button faButton;
     public Button reButton;
     public Button miButton;
 
     private HudVidaController hudController;
 
     public TextMeshProUGUI textoFeedback2;
+
+
+    public DicasController dicasController; // Referência ao controlador de dicas
+    public void Dicas()
+    {
+        dicasController.ShowDica();
+    }
 
 
     void Start()
@@ -66,10 +73,10 @@ public class Puzzle1_sala5 : MonoBehaviour
             faButton.gameObject.SetActive(true);
             reButton.gameObject.SetActive(true);
             miButton.gameObject.SetActive(true);
-            
-            
+
+
         }
-        
+
     }
 
     private bool TodosDiscosCorretos()
@@ -109,7 +116,7 @@ public class Puzzle1_sala5 : MonoBehaviour
         textoFeedback2.gameObject.SetActive(true);
         botaoAvancar.gameObject.SetActive(true); // Ativa o botão de avançar
 
-        
+
     }
 
     public void _mi()
@@ -137,4 +144,5 @@ public class Puzzle1_sala5 : MonoBehaviour
         PuzzleProgressManager.Instance.MarkSolved("Puzzle1_Sala5");
         SceneManager.LoadScene("Sala V");
     }
+    
 }
