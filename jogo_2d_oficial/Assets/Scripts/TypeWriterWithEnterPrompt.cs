@@ -12,7 +12,6 @@ public class TypewriterWithEnterPrompt : MonoBehaviour
     public float startDelay = 1f;
     public string sceneToLoad; // Nome da cena a ser carregada
     public AudioClip typeSound; // Som da máquina de escrever
-    public AudioSource audioSource; // Fonte de áudio para digitação
 
     public GameObject enterPrompt; // Texto “Pressione ENTER para continuar”
 
@@ -26,10 +25,14 @@ public class TypewriterWithEnterPrompt : MonoBehaviour
 
     void Update()
     {
+        if (!typingDone) return;
         // Só permite apertar Enter depois que o texto terminou
-        if (typingDone && Input.GetKeyDown(KeyCode.Return))
+        bool enterKey = Input.GetKeyDown(KeyCode.Return);
+        bool clickOrTouch = Input.GetMouseButtonDown(0)
+                         || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began);
+
+        if (enterKey || clickOrTouch)
         {
-            // Troca de cena
             SceneManager.LoadScene(sceneToLoad);
         }
     }
@@ -43,9 +46,9 @@ public class TypewriterWithEnterPrompt : MonoBehaviour
         foreach (char c in fullText)
         {
             textMeshPro.text += c;
-            if (!char.IsWhiteSpace(c) && typeSound != null && audioSource != null)
+            if (!char.IsWhiteSpace(c) && typeSound != null && SfxManager.Instance != null)
             {
-                audioSource.PlayOneShot(typeSound);
+                SfxManager.Instance.Play(typeSound);
             }
             yield return new WaitForSeconds(typingSpeed);
         }

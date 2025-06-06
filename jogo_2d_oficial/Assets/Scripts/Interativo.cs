@@ -1,11 +1,11 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
 public class Interativo : MonoBehaviour
 {
-    public KeyCode keyToPress = KeyCode.E;
-    public GameObject textToShow;
+    public Button textToShow;
     public string sceneToLoad;
     public AudioClip interactionClip;
     [Min(0)] public float sceneLoadDelay;
@@ -25,17 +25,18 @@ public class Interativo : MonoBehaviour
     {
         if (_isInRange)
         {
-            
-            if (!textToShow.activeSelf) textToShow.SetActive(true);
 
-            if (Input.GetKeyDown(keyToPress) && !_sceneLoading)
-                StartCoroutine(PlaySoundAndTransition());
+            textToShow.gameObject.SetActive(true);
+
+            // if (Input.GetKeyDown(keyToPress) && !_sceneLoading)
+            //     StartCoroutine(PlaySoundAndTransition());
         }
         else
         {
-            if (textToShow.activeSelf) textToShow.SetActive(false);
+            textToShow.gameObject.SetActive(false);
         }
     }
+
 
     IEnumerator PlaySoundAndTransition()
     {
@@ -60,5 +61,16 @@ public class Interativo : MonoBehaviour
     void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player")) _isInRange = false;
+    }
+
+
+
+    public void loadPuzzle()
+    {
+        if (!_sceneLoading)
+        {
+            StartCoroutine(PlaySoundAndTransition());
+        }
+
     }
 }

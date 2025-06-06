@@ -13,45 +13,52 @@ public class Puzzle1_sala5 : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip somErro;
     public AudioClip somAcerto;
-
     public AudioClip re;
 
     public TextMeshProUGUI textFeedback;
+    public TextMeshProUGUI textoFeedback2;
 
     public Button botaoAvancar;
-
-    private PuzzleSaver puzzle;
-
     public Button tocar;
-
     public Button doButton;
-    public Button faButton; 
+    public Button faButton;
     public Button reButton;
     public Button miButton;
 
+    private PuzzleSaver puzzle;
     private HudVidaController hudController;
 
-    public TextMeshProUGUI textoFeedback2;
+    public DicasController dicasController;
 
+    public void Dicas()
+    {
+        PlayerPrefs.SetString("PreviousScene", SceneManager.GetActiveScene().name);
+        PlayerPrefs.SetInt("WatchedAd", 0);
+        SceneManager.LoadScene("Ads");
+    }
 
     void Start()
     {
         hudController = HudVidaController.Instance;
         puzzle = PuzzleSaver.Instance;
+
         if (!puzzle.puzzle1_sala5)
         {
-
-            botaoAvancar.gameObject.SetActive(false); // Desativa o botão de avançar no início
-            textFeedback.gameObject.SetActive(false); // Desativa o feedback de resposta incorreta
-            tocar.gameObject.SetActive(false); // Desativa o botão de tocar no início
+            botaoAvancar.gameObject.SetActive(false);
+            textFeedback.gameObject.SetActive(false);
+            tocar.gameObject.SetActive(false);
             doButton.gameObject.SetActive(false);
             faButton.gameObject.SetActive(false);
             reButton.gameObject.SetActive(false);
             miButton.gameObject.SetActive(false);
         }
 
+        if (PlayerPrefs.GetInt("WatchedAd", 0) == 1)
+        {
+            PlayerPrefs.SetInt("WatchedAd", 0);
+            dicasController.ShowDica();
+        }
     }
-
 
     void Update()
     {
@@ -66,10 +73,7 @@ public class Puzzle1_sala5 : MonoBehaviour
             faButton.gameObject.SetActive(true);
             reButton.gameObject.SetActive(true);
             miButton.gameObject.SetActive(true);
-            
-            
         }
-        
     }
 
     private bool TodosDiscosCorretos()
@@ -77,11 +81,8 @@ public class Puzzle1_sala5 : MonoBehaviour
         foreach (var disco in discos)
         {
             if (!disco.EstaCorreto())
-            {
                 return false;
-            }
         }
-
         return true;
     }
 
@@ -92,7 +93,6 @@ public class Puzzle1_sala5 : MonoBehaviour
         textoFeedback2.gameObject.SetActive(true);
         hudController.PerderVida();
     }
-
 
     public void _fa()
     {
@@ -107,9 +107,8 @@ public class Puzzle1_sala5 : MonoBehaviour
         textoFeedback2.text = "Esse é o som!";
         audioSource.PlayOneShot(somAcerto);
         textoFeedback2.gameObject.SetActive(true);
-        botaoAvancar.gameObject.SetActive(true); // Ativa o botão de avançar
-
-        
+        botaoAvancar.gameObject.SetActive(true);
+        resolvido = true;
     }
 
     public void _mi()
@@ -119,7 +118,6 @@ public class Puzzle1_sala5 : MonoBehaviour
         textoFeedback2.gameObject.SetActive(true);
         hudController.PerderVida();
     }
-
 
     public void TocarSom()
     {

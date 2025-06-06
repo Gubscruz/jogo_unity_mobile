@@ -3,22 +3,36 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class SoundTrack : MonoBehaviour
 {
-    private static SoundTrack _instance;
+    public static SoundTrack Instance { get; private set; }
+    public AudioSource Source { get; private set; }
 
     void Awake()
     {
-        if (_instance == null)
+        if (Instance == null)
         {
-            _instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            var src = GetComponent<AudioSource>();
-            src.loop = true;
-            src.playOnAwake = true; // já pode estar marcado no Inspector
+            Source = GetComponent<AudioSource>();
+            Source.loop = true;
+            Source.playOnAwake = true; // já pode estar marcado no Inspector
         }
         else
         {
             Destroy(gameObject);
         }
+    }
+
+    public void SetVolume(float v)
+    {
+        if (Source != null)
+            Source.volume = Mathf.Clamp01(v);
+    }
+
+
+    public void Enable(bool on)
+    {
+        if (Source != null)
+            Source.mute = !on;
     }
 }

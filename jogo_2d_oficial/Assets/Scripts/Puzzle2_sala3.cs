@@ -5,120 +5,101 @@ using UnityEngine.SceneManagement;
 
 public class Puzzle2_sala3 : MonoBehaviour
 {
-
     public int[] resposta = new int[5];
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public Texture spriteON;
     public Texture spriteOFF;
-    public UnityEngine.UI.RawImage[] alavancaImagens;
+    public RawImage[] alavancaImagens;
 
-    public TextMeshProUGUI textoFeedback; // Referência ao texto de instruções
-
-    public Button botaoAvancar; // Referência ao botão de fechar o puzzle
+    public TextMeshProUGUI textoFeedback;
+    public Button botaoAvancar;
 
     private PuzzleSaver puzzle;
-    
-    public AudioSource audioSource; // Referência ao AudioSource
-
-    public AudioClip somErro; // Referência ao som de erro
-    public AudioClip somAcerto; // Referência ao som de acerto
-
     private HudVidaController hudController;
 
-    public void alavanca1()
-    {
-        resposta[0] = 1 - resposta[0]; // alterna entre 0 e 1
-        alavancaImagens[0].texture = (resposta[0] == 1) ? spriteON : spriteOFF;
-        Debug.Log("Alavanca 1 agora está em " + resposta[0]);
-    }
+    public AudioSource audioSource;
+    public AudioClip somErro;
+    public AudioClip somAcerto;
 
-    public void alavanca2(){
-        resposta[1] = 1 - resposta[1]; // alterna entre 0 e 1
-        alavancaImagens[1].texture = (resposta[1] == 1) ? spriteON : spriteOFF;
-        Debug.Log("Alavanca 2 agora está em " + resposta[1]);
-    }
-
-    public void alavanca3(){
-        resposta[2] = 1 - resposta[2]; // alterna entre 0 e 1
-        alavancaImagens[2].texture = (resposta[2] == 1) ? spriteON : spriteOFF;
-        Debug.Log("Alavanca 2 agora está em " + resposta[2]);
-    }
-
-    public void alavanca4(){
-        resposta[3] = 1 - resposta[3]; // alterna entre 0 e 1
-        alavancaImagens[3].texture = (resposta[3] == 1) ? spriteON : spriteOFF;
-        Debug.Log("Alavanca 2 agora está em " + resposta[3]);
-    }
-
-    public void alavanca5(){
-        resposta[4] = 1 - resposta[4]; // alterna entre 0 e 1
-        alavancaImagens[4].texture = (resposta[4] == 1) ? spriteON : spriteOFF;
-        Debug.Log("Alavanca 2 agora está em " + resposta[4]);
-    }
-
-
+    public DicasController dicasController;
 
     void Start()
     {
-
         hudController = HudVidaController.Instance;
         puzzle = PuzzleSaver.Instance;
+
         if (!puzzle.puzzle2_sala3)
         {
-            textoFeedback.gameObject.SetActive(false); // Desativa o feedback de resposta incorreta
-            botaoAvancar.gameObject.SetActive(false); // Desativa o botão de avançar no início
-
+            textoFeedback.gameObject.SetActive(false);
+            botaoAvancar.gameObject.SetActive(false);
         }
-        
-        resposta[0] = 1;
-        resposta[1] = 1;
-        resposta[2] = 1;
-        resposta[3] = 1;
-        resposta[4] = 1;
 
-        alavancaImagens[0].texture = spriteON;
-        alavancaImagens[1].texture = spriteON;
-        alavancaImagens[2].texture = spriteON;
-        alavancaImagens[3].texture = spriteON;
-        alavancaImagens[4].texture = spriteON;      
+        // Inicializa alavancas como ligadas (1)
+        for (int i = 0; i < resposta.Length; i++)
+        {
+            resposta[i] = 1;
+            alavancaImagens[i].texture = spriteON;
+        }
+
+        // Se voltou de anúncio, mostrar dica
+        if (PlayerPrefs.GetInt("WatchedAd", 0) == 1)
+        {
+            PlayerPrefs.SetInt("WatchedAd", 0);
+            dicasController.ShowDica();
+        }
     }
 
-    public void Verificar(){
-        
-        //reposta correta (13) - 0, 1, 1, 0, 1
+    public void alavanca1() => AlternarAlavanca(0);
+    public void alavanca2() => AlternarAlavanca(1);
+    public void alavanca3() => AlternarAlavanca(2);
+    public void alavanca4() => AlternarAlavanca(3);
+    public void alavanca5() => AlternarAlavanca(4);
+
+    private void AlternarAlavanca(int index)
+    {
+        resposta[index] = 1 - resposta[index];
+        alavancaImagens[index].texture = (resposta[index] == 1) ? spriteON : spriteOFF;
+        Debug.Log($"Alavanca {index + 1} agora está em {resposta[index]}");
+    }
+
+    public void Verificar()
+    {
         if (resposta[0] == 0 && resposta[1] == 1 && resposta[2] == 1 && resposta[3] == 0 && resposta[4] == 1)
         {
+            audioSource.PlayOneShot(somAcerto);
+            textoFeedback.text = "Correto!";
+            textoFeedback.gameObject.SetActive(true);
+            botaoAvancar.gameObject.SetActive(true);
             Debug.Log("Puzzle resolvido corretamente!");
-            audioSource.PlayOneShot(somAcerto); // Toca o som de acerto
-            textoFeedback.text = "Correto!"; // Atualiza o feedback de resposta correta
-            textoFeedback.gameObject.SetActive(true); // Ativa o feedback de resposta correta
-            botaoAvancar.gameObject.SetActive(true); // Ativa o botão de avançar
-            // Aqui você pode adicionar o código para avançar para a próxima parte do jogo
         }
         else
         {
             hudController.PerderVida();
-            audioSource.PlayOneShot(somErro); // Toca o som de erro
+            audioSource.PlayOneShot(somErro);
+            textoFeedback.text = "Não parece estar certo...";
+            textoFeedback.gameObject.SetActive(true);
             Debug.Log("Puzzle incorreto!");
-            textoFeedback.text = "Não parece estar certo..."; // Atualiza o feedback de resposta incorreta
-            textoFeedback.gameObject.SetActive(true); // Ativa o feedback de resposta incorreta
         }
     }
 
-
     public void Voltar()
     {
-        SceneManager.LoadScene("Sala III"); // Volta para a cena inicial
-        // Aqui você pode adicionar a lógica para voltar ao jogo, como fechar o painel do puzzle
+        SceneManager.LoadScene("Sala III");
         Debug.Log("Voltar para a parte anterior do jogo!");
     }
 
-    public void Avancar(){
-        // Aqui você pode adicionar a lógica para avançar no jogo, como abrir uma porta ou trocar de cena
+    public void Avancar()
+    {
         puzzle.puzzle2_sala3 = true;
         PuzzleProgressManager.Instance.MarkSolved("Puzzle2_Sala3");
-        SceneManager.LoadScene("Sala III"); // Avança para a próxima sala
+        SceneManager.LoadScene("Sala III");
         Debug.Log("Avançar para a próxima parte do jogo!");
     }
 
+    public void Dicas()
+    {
+        // Redireciona para cena de anúncio antes de exibir a dica
+        PlayerPrefs.SetString("PreviousScene", SceneManager.GetActiveScene().name);
+        PlayerPrefs.SetInt("WatchedAd", 0);
+        SceneManager.LoadScene("Ads");
+    }
 }
