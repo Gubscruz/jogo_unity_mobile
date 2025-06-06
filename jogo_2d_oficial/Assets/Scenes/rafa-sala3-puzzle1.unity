@@ -1821,6 +1821,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1341869650
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1341869652}
+  - component: {fileID: 1341869651}
+  m_Layer: 0
+  m_Name: PuzzleSaver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1341869651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341869650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 077d697ffb4c9af4bbd41f98d8aff12e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  puzzle1_sala1: 0
+  puzzle1_sala2: 0
+  puzzle2_sala2: 0
+  puzzle1_sala3: 0
+  puzzle2_sala3: 0
+  puzzle2_sala4: 0
+  puzzle1_sala4: 0
+  puzzle3_sala4: 0
+  puzzle1_salaSecreta: 0
+  entrouSalaSecreta: 0
+  puzzle1_sala5: 0
+--- !u!4 &1341869652
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341869650}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.1364192, y: -0.5194428, z: 39.358013}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1386765944
 GameObject:
   m_ObjectHideFlags: 0
@@ -1893,6 +1948,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1386765944}
   m_CullTransparentMesh: 1
+--- !u!114 &1469656025 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2687964295573580656, guid: 473fdee4141c94b49bc853dd2164d120, type: 3}
+  m_PrefabInstance: {fileID: 839225918}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cddb8bab28939ef41904882dad636a6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1490510157
 GameObject:
   m_ObjectHideFlags: 0
@@ -1931,7 +1997,7 @@ MonoBehaviour:
   somErro: {fileID: 8300000, guid: ed13cabe9bea96e4992148b3297cfc1e, type: 3}
   somAcerto: {fileID: 8300000, guid: b1f91a03176ddba438fd40aedc745467, type: 3}
   tick: {fileID: 8300000, guid: 6dc89ea3ed208524c84d21e9c35c9308, type: 3}
-  dicasController: {fileID: 0}
+  dicasController: {fileID: 1469656025}
 --- !u!4 &1490510159
 Transform:
   m_ObjectHideFlags: 0
@@ -3459,3 +3525,4 @@ SceneRoots:
   - {fileID: 179121268}
   - {fileID: 246125220}
   - {fileID: 440075584}
+  - {fileID: 1341869652}
