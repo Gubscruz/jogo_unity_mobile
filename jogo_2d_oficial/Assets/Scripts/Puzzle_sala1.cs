@@ -10,23 +10,19 @@ public class Puzzle_Sala1 : MonoBehaviour
     public TextMeshProUGUI textoFeedback;
 
     private PuzzleSaver puzzle;
+    private HudVidaController hudController;
 
     private string respostaCorreta = "7513";
+
     public GameObject painelPuzzle;
 
     public AudioSource audioSource;
-
     public AudioClip somErro;
-
     public AudioClip somAcerto;
-
-    private HudVidaController hudController;
 
     public DicasController dicasController;
 
-     
-
-    public void Start()
+    void Start()
     {
         puzzle = PuzzleSaver.Instance;
         hudController = HudVidaController.Instance;
@@ -37,14 +33,13 @@ public class Puzzle_Sala1 : MonoBehaviour
             textoFeedback.gameObject.SetActive(false);
         }
 
-        // Checa se o jogador acabou de ver o anúncio
+        // Se o jogador acabou de ver o anúncio, mostra a dica
         if (PlayerPrefs.GetInt("WatchedAd", 0) == 1)
         {
-            MostrarDica();
-            PlayerPrefs.SetInt("WatchedAd", 0); // resetar
+            PlayerPrefs.SetInt("WatchedAd", 0); // Reseta
+            dicasController.ShowDica(); // Mostra dica
         }
     }
-
 
     public void Verificar()
     {
@@ -64,10 +59,8 @@ public class Puzzle_Sala1 : MonoBehaviour
             audioSource.PlayOneShot(somErro);
             hudController.PerderVida();
         }
-        //se nao incluir numero 7,5,1,3
         else if (!respostaDoJogador.Contains("7") || !respostaDoJogador.Contains("5") || !respostaDoJogador.Contains("1") || !respostaDoJogador.Contains("3"))
         {
-
             textoFeedback.text = "A resposta deve conter os números 7, 5, 1 e 3.";
             textoFeedback.gameObject.SetActive(true);
             audioSource.PlayOneShot(somErro);
@@ -84,22 +77,26 @@ public class Puzzle_Sala1 : MonoBehaviour
 
     public void Voltar()
     {
-
-        SceneManager.LoadScene("Sala I"); // Volta para a cena inicial
-
+        SceneManager.LoadScene("Sala I");
     }
 
     public void Avancar()
     {
         puzzle.puzzle1_sala1 = true;
         PuzzleProgressManager.Instance.MarkSolved("Puzzle1_Sala1");
-        SceneManager.LoadScene("Sala I"); // Volta para a cena inicial
+        SceneManager.LoadScene("Sala I");
     }
 
-
+    // Botão "Ver Dicas" chama esta função
     public void Dicas()
     {
-        dicasController.ShowDica();
+        // Salva cena atual
+        PlayerPrefs.SetString("PreviousScene", SceneManager.GetActiveScene().name);
+
+        // Marca que ainda não assistiu ao anúncio
+        PlayerPrefs.SetInt("WatchedAd", 0);
+
+        // Vai pra tela de ads simulados
+        SceneManager.LoadScene("Ads");
     }
 }
- 
