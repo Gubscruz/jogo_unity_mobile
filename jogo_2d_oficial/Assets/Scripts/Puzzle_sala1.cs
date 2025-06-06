@@ -22,20 +22,27 @@ public class Puzzle_Sala1 : MonoBehaviour
 
     private HudVidaController hudController;
 
+    public GameObject painelDica;
+
     public void Start()
     {
         puzzle = PuzzleSaver.Instance;
-
         hudController = HudVidaController.Instance;
-
 
         if (!puzzle.puzzle1_sala1)
         {
-
             botaoAvancar.gameObject.SetActive(false);
             textoFeedback.gameObject.SetActive(false);
         }
+
+        // Checa se o jogador acabou de ver o anúncio
+        if (PlayerPrefs.GetInt("WatchedAd", 0) == 1)
+        {
+            MostrarDica();
+            PlayerPrefs.SetInt("WatchedAd", 0); // resetar
+        }
     }
+
 
     public void Verificar()
     {
@@ -90,8 +97,24 @@ public class Puzzle_Sala1 : MonoBehaviour
 
     public void Dicas()
     {
-        //load anuncio e depois cena de dicas
-        
+        // Salva a cena atual para poder voltar depois do "anúncio"
+        PlayerPrefs.SetString("PreviousScene", SceneManager.GetActiveScene().name);
+
+        // Marca que ainda não assistiu o anúncio
+        PlayerPrefs.SetInt("WatchedAd", 0);
+
+        // Vai para a cena de ads simulados
+        SceneManager.LoadScene("Ads");
     }
+    
+    public void MostrarDica()
+    {
+        if (painelDica != null)
+        {
+            painelDica.SetActive(true);
+        }
+    }
+
+
 }
  

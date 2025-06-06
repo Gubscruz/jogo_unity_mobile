@@ -2406,7 +2406,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1374629653
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3858,6 +3858,7 @@ MonoBehaviour:
   audioSource: {fileID: 1821054335}
   somErro: {fileID: 8300000, guid: ed13cabe9bea96e4992148b3297cfc1e, type: 3}
   somAcerto: {fileID: 8300000, guid: b1f91a03176ddba438fd40aedc745467, type: 3}
+  painelDica: {fileID: 1374629652}
 --- !u!1 &2111728180
 GameObject:
   m_ObjectHideFlags: 0
