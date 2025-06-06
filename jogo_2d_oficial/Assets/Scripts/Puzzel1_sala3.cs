@@ -11,9 +11,9 @@ public class Puzzel1_sala3 : MonoBehaviour
     public TMP_InputField inputResposta;
 
     private string respostaCorreta = "75";
-    
+
     private PuzzleSaver puzzle;
-    
+
     public PuzzleTimer timer;
 
 
@@ -24,6 +24,8 @@ public class Puzzel1_sala3 : MonoBehaviour
     public AudioClip somAcerto;
 
     public AudioClip tick;
+
+    public DicasController dicasController; // Referência ao controlador de dicas
 
 
     public void Start()
@@ -45,7 +47,8 @@ public class Puzzel1_sala3 : MonoBehaviour
     }
 
 
-    public void Verificar(){
+    public void Verificar()
+    {
 
         string respostaDoJogador = inputResposta.text.Trim().ToLower();
         if (respostaCorreta == respostaDoJogador)
@@ -84,6 +87,12 @@ public class Puzzel1_sala3 : MonoBehaviour
         PuzzleProgressManager.Instance.MarkSolved("Puzzle1_Sala3");
         SceneManager.LoadScene("Sala III"); // Avança para a próxima sala
 
+    }
+    
+    public void Dicas()
+    {
+        
+        dicasController.ShowDica(); // Chama o método de exibição de dicas
     }
 
     

@@ -22,7 +22,9 @@ public class Puzzle_Sala1 : MonoBehaviour
 
     private HudVidaController hudController;
 
-    public GameObject painelDica;
+    public DicasController dicasController;
+
+     
 
     public void Start()
     {
@@ -97,24 +99,7 @@ public class Puzzle_Sala1 : MonoBehaviour
 
     public void Dicas()
     {
-        // Salva a cena atual para poder voltar depois do "anúncio"
-        PlayerPrefs.SetString("PreviousScene", SceneManager.GetActiveScene().name);
-
-        // Marca que ainda não assistiu o anúncio
-        PlayerPrefs.SetInt("WatchedAd", 0);
-
-        // Vai para a cena de ads simulados
-        SceneManager.LoadScene("Ads");
+        dicasController.ShowDica();
     }
-    
-    public void MostrarDica()
-    {
-        if (painelDica != null)
-        {
-            painelDica.SetActive(true);
-        }
-    }
-
-
 }
  

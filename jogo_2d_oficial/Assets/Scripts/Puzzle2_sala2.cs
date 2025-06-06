@@ -11,7 +11,6 @@ public class Puzzle2_sala2 : MonoBehaviour
 
     private string respostaCorreta = "321525";
 
-    public GameObject panel;
     public Button botaoAvancar;
 
     private PuzzleSaver puzzle;
@@ -21,6 +20,8 @@ public class Puzzle2_sala2 : MonoBehaviour
     public AudioClip somAcerto;
 
     private HudVidaController hudController;
+
+    public DicasController dicasController; // Referência ao controlador de dicas
 
     public void abrirLivro1()
     {
@@ -50,7 +51,7 @@ public class Puzzle2_sala2 : MonoBehaviour
     {
 
         hudController = HudVidaController.Instance;
-        
+
         puzzle = PuzzleSaver.Instance;
         if (!puzzle.puzzle2_sala2)
         {
@@ -113,5 +114,10 @@ public class Puzzle2_sala2 : MonoBehaviour
         PuzzleProgressManager.Instance.MarkSolved("Puzzle2_Sala2");
         SceneManager.LoadScene("Sala II"); // Volta para a cena inicial
         Debug.Log("Avançar para a próxima parte do jogo!");
+    }
+    
+    public void Dicas()
+    {
+        dicasController.ShowDica(); // Chama o método de exibição de dicas do controlador
     }
 }
