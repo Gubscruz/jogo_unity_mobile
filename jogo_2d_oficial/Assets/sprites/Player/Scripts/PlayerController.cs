@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -7,38 +8,42 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
     private Animator animator;
-
-    // vetor de movimento atual e último vetor não-zero
     private Vector2 movement;
-    private Vector2 lastMovement = Vector2.down; // valor inicial: olhando para baixo
+    private Vector2 lastMovement = Vector2.down;
+
+    private PlayerInputActions actions;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        actions = new PlayerInputActions();
+    }
+
+    void OnEnable()
+    {
+        actions.Enable();
+    }
+
+    void OnDisable()
+    {
+        actions.Disable();
     }
 
     void Update()
     {
-        // 1) ler input bruto
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        movement = actions.Gameplay.Move.ReadValue<Vector2>();
 
-        // 2) se houver movimento, atualiza o lastMovement
         if (movement != Vector2.zero)
             lastMovement = movement.normalized;
 
-        // 3) usa lastMovement pra dirigir o Blend Tree
         animator.SetFloat("MoveX", lastMovement.x);
         animator.SetFloat("MoveY", lastMovement.y);
-
-        // 4) Speed continua usando movement real pra transição Idle/Walk
         animator.SetFloat("Speed", movement.sqrMagnitude);
     }
 
     void FixedUpdate()
     {
-        // movimento físico: normaliza o vetor só pra manter velocidade constante
         if (movement != Vector2.zero)
         {
             Vector2 desloc = movement.normalized * speed * Time.fixedDeltaTime;
