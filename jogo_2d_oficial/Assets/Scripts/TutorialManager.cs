@@ -13,7 +13,7 @@ public class TutorialManager : MonoBehaviour
     private void Start()
     {
         canvasGroup = tutorialText.GetComponent<CanvasGroup>();
-        tutorialText.text = "Use WASD para se movimentar.";
+        tutorialText.text = "Use o joystick para se movimentar.";
         canvasGroup.alpha = 1f;
         tutorialText.gameObject.SetActive(true);
     }
@@ -56,10 +56,10 @@ public class TutorialManager : MonoBehaviour
         switch (currentStep)
         {
             case 1:
-                tutorialText.text = "Use TAB para abrir o menu de pause";
+                tutorialText.text = "Use o botão pause para abrir o menu de pause";
                 break;
             case 2:
-                tutorialText.text = "Use E para interagir com os puzzles.";
+                tutorialText.text = "Clique no interagível para interagir com os puzzles.";
                 break;
             case 3:
                 tutorialText.text = "Boa sorte!";
