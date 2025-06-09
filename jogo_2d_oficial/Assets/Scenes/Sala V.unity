@@ -199,8 +199,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb59f060798bee04a8361d5dbe64ee2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalCursor: {fileID: 2800000, guid: 238fd007e63978e499460360ad56e99a, type: 3}
-  hoverCursor: {fileID: 2800000, guid: d64c751b36fde6544961c09dc4518795, type: 3}
 --- !u!114 &128578944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -644,8 +642,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb59f060798bee04a8361d5dbe64ee2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalCursor: {fileID: 2800000, guid: 238fd007e63978e499460360ad56e99a, type: 3}
-  hoverCursor: {fileID: 2800000, guid: d64c751b36fde6544961c09dc4518795, type: 3}
 --- !u!114 &189119242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4598,6 +4594,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1118898079
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3914566446939984501, guid: 76dd60b323beb4ec7a41f214bbf57ac6, type: 3}
+      propertyPath: m_Name
+      value: PauseManagerRoot
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128719361315268533, guid: 76dd60b323beb4ec7a41f214bbf57ac6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 459.41223
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128719361315268533, guid: 76dd60b323beb4ec7a41f214bbf57ac6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 322.13446
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128719361315268533, guid: 76dd60b323beb4ec7a41f214bbf57ac6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.4014545
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128719361315268533, guid: 76dd60b323beb4ec7a41f214bbf57ac6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128719361315268533, guid: 76dd60b323beb4ec7a41f214bbf57ac6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128719361315268533, guid: 76dd60b323beb4ec7a41f214bbf57ac6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128719361315268533, guid: 76dd60b323beb4ec7a41f214bbf57ac6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128719361315268533, guid: 76dd60b323beb4ec7a41f214bbf57ac6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128719361315268533, guid: 76dd60b323beb4ec7a41f214bbf57ac6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128719361315268533, guid: 76dd60b323beb4ec7a41f214bbf57ac6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 76dd60b323beb4ec7a41f214bbf57ac6, type: 3}
 --- !u!1 &1136339299
 GameObject:
   m_ObjectHideFlags: 0
@@ -5626,8 +5679,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb59f060798bee04a8361d5dbe64ee2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalCursor: {fileID: 2800000, guid: 238fd007e63978e499460360ad56e99a, type: 3}
-  hoverCursor: {fileID: 2800000, guid: d64c751b36fde6544961c09dc4518795, type: 3}
 --- !u!114 &1607108785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8864,8 +8915,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb59f060798bee04a8361d5dbe64ee2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalCursor: {fileID: 2800000, guid: 238fd007e63978e499460360ad56e99a, type: 3}
-  hoverCursor: {fileID: 2800000, guid: d64c751b36fde6544961c09dc4518795, type: 3}
 --- !u!114 &2033580555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22108,3 +22157,4 @@ SceneRoots:
   - {fileID: 901417448}
   - {fileID: 458334465}
   - {fileID: 1136339302}
+  - {fileID: 1118898079}

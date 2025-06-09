@@ -12,7 +12,7 @@ public class PauseMenuController : MonoBehaviour
     void Start()
     {
         MenuCanvas.SetActive(false);
-        Time.timeScale = 1f; // garante que começa despausado
+        Time.timeScale = 1f;
     }
 
     void Update()
@@ -25,6 +25,18 @@ public class PauseMenuController : MonoBehaviour
                 PauseGame();
         }
     }
+
+    public void OnPauseButtonClick()
+    {
+        TogglePause();
+    }
+
+    private void TogglePause()
+    {
+        if (isPaused) ResumeGame();
+        else PauseGame();
+    }
+
 
     public void PauseGame()
     {
