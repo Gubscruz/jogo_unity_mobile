@@ -14,14 +14,13 @@ public class Puzzle2_sala2 : MonoBehaviour
     public Button botaoAvancar;
 
     private PuzzleSaver puzzle;
+    private HudVidaController hudController;
 
     public AudioSource audioSource;
     public AudioClip somErro;
     public AudioClip somAcerto;
 
-    private HudVidaController hudController;
-
-    public DicasController dicasController; // Referência ao controlador de dicas
+    public DicasController dicasController;
 
     public void abrirLivro1()
     {
@@ -49,18 +48,24 @@ public class Puzzle2_sala2 : MonoBehaviour
 
     void Start()
     {
-
         hudController = HudVidaController.Instance;
-
         puzzle = PuzzleSaver.Instance;
+
         if (!puzzle.puzzle2_sala2)
         {
             foreach (var campo in camposCodigo)
             {
                 campo.text = "";
             }
-            botaoAvancar.gameObject.SetActive(false); // Desativa o botão de avançar no início
-            textoFeedback.gameObject.SetActive(false); // Desativa o feedback de resposta incorreta
+            botaoAvancar.gameObject.SetActive(false);
+            textoFeedback.gameObject.SetActive(false);
+        }
+
+        // Verifica se o jogador voltou da FakeAdScene
+        if (PlayerPrefs.GetInt("WatchedAd", 0) == 1)
+        {
+            PlayerPrefs.SetInt("WatchedAd", 0); // Reseta a flag
+            dicasController.ShowDica(); // Exibe a dica
         }
     }
 
@@ -74,28 +79,28 @@ public class Puzzle2_sala2 : MonoBehaviour
 
         if (codigoDigitado == respostaCorreta)
         {
-            audioSource.PlayOneShot(somAcerto); // Toca o som de acerto
+            audioSource.PlayOneShot(somAcerto);
             textoFeedback.text = "Correto!";
             textoFeedback.gameObject.SetActive(true);
             botaoAvancar.gameObject.SetActive(true);
         }
         else if (System.Text.RegularExpressions.Regex.IsMatch(codigoDigitado, @"[a-zA-Z]"))
         {
-            audioSource.PlayOneShot(somErro); // Toca o som de erro
+            audioSource.PlayOneShot(somErro);
             textoFeedback.text = "A resposta não deve conter letras.";
             textoFeedback.gameObject.SetActive(true);
             hudController.PerderVida();
         }
         else if (codigoDigitado.Length == 6)
         {
-            audioSource.PlayOneShot(somErro); // Toca o som de erro
+            audioSource.PlayOneShot(somErro);
             textoFeedback.text = "Não parece estar certo...";
             textoFeedback.gameObject.SetActive(true);
             hudController.PerderVida();
         }
         else
         {
-            audioSource.PlayOneShot(somErro); // Toca o som de erro
+            audioSource.PlayOneShot(somErro);
             textoFeedback.text = "Ainda há números perdidos....";
             textoFeedback.gameObject.SetActive(true);
             hudController.PerderVida();
@@ -104,20 +109,21 @@ public class Puzzle2_sala2 : MonoBehaviour
 
     public void Voltar()
     {
-        SceneManager.LoadScene("Sala II"); // Volta para a cena inicial
-
+        SceneManager.LoadScene("Sala II");
     }
 
     public void Avancar()
     {
         puzzle.puzzle2_sala2 = true;
         PuzzleProgressManager.Instance.MarkSolved("Puzzle2_Sala2");
-        SceneManager.LoadScene("Sala II"); // Volta para a cena inicial
-        Debug.Log("Avançar para a próxima parte do jogo!");
+        SceneManager.LoadScene("Sala II");
     }
-    
+
     public void Dicas()
     {
-        dicasController.ShowDica(); // Chama o método de exibição de dicas do controlador
+        // Redireciona para anúncio simulado antes de mostrar dica
+        PlayerPrefs.SetString("PreviousScene", SceneManager.GetActiveScene().name);
+        PlayerPrefs.SetInt("WatchedAd", 0);
+        SceneManager.LoadScene("Ads");
     }
 }
