@@ -4,50 +4,46 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.SceneManagement;
+
 public class Puzzle1_salaSecreta : MonoBehaviour
 {
-
     private Slot[] slotsPerson;
-
     private Slot[] slotsSymbol;
 
-    public GameObject dicas; // Referência ao painel onde os slots estão localizados
+    public GameObject dicas;
+    public GameObject botaoAvancar;
+    public TextMeshProUGUI textoFeedback;
 
-    public GameObject botaoAvancar; // Referência ao botão de fechar o puzzle
-
-    public TextMeshProUGUI textoFeedback; // Referência ao texto de feedback
-
-    private bool personResolved = false; // Flag para verificar se o puzzle de pessoas foi resolvido
-    private bool symbolResolved = false; // Flag para verificar se o puzzle de símbolos foi resolvido
+    private bool personResolved = false;
+    private bool symbolResolved = false;
 
     private PuzzleSaver puzzle;
-    
     private HudVidaController hudController;
 
     public AudioSource audioSource;
     public AudioClip somErro;
     public AudioClip somAcerto;
 
-    public DicasController dicasController; // Referência ao controlador de dicas
-    public void DicasShow()
-    {
-        dicasController.ShowDica(); // Chama o método para mostrar a dica
-    }
-
+    public DicasController dicasController;
 
     public void Start()
-
     {
         hudController = HudVidaController.Instance;
-        puzzle = PuzzleSaver.Instance; // Obtém a instância do PuzzleSaver
+        puzzle = PuzzleSaver.Instance;
+
         if (puzzle.puzzle1_salaSecreta)
         {
-            textoFeedback.gameObject.SetActive(false); // Desativa o feedback de resposta incorreta
-            botaoAvancar.gameObject.SetActive(false); // Desativa o botão de avançar no início
+            textoFeedback.gameObject.SetActive(false);
+            botaoAvancar.gameObject.SetActive(false);
         }
 
+        // Se voltou de um anúncio, mostrar a dica
+        if (PlayerPrefs.GetInt("WatchedAd", 0) == 1)
+        {
+            PlayerPrefs.SetInt("WatchedAd", 0);
+            dicasController.ShowDica();
+        }
     }
-
 
     public void DefinirSlotsPerson(Slot[] listaSlots)
     {
@@ -59,42 +55,29 @@ public class Puzzle1_salaSecreta : MonoBehaviour
         slotsSymbol = listaSlots;
     }
 
-
-
     public void checkPerson()
     {
         foreach (Slot slot in slotsPerson)
         {
-            if (slot.currentItem == null)
-            {
-                Debug.Log("Slot vazio!");
-                return;
-            }
+            if (slot.currentItem == null) return;
 
             ItemDragHandle2 item = slot.currentItem.GetComponent<ItemDragHandle2>();
             if (item.itemId != slot.slotId)
             {
-                
                 Debug.Log($"Puzzle de pessoas incorreto! Item {item.itemId} está no slot {slot.slotId}");
                 return;
             }
         }
 
         Debug.Log("Puzzle de pessoas resolvido corretamente!");
-        personResolved = true; // Marca o puzzle de pessoas como resolvido
-
+        personResolved = true;
     }
-
 
     public void checkSymbol()
     {
         foreach (Slot slot in slotsSymbol)
         {
-            if (slot.currentItem == null)
-            {
-                Debug.Log("Slot vazio!");
-                return;
-            }
+            if (slot.currentItem == null) return;
 
             ItemDragHandle2 item = slot.currentItem.GetComponent<ItemDragHandle2>();
             if (item.itemId != slot.slotId)
@@ -105,66 +88,75 @@ public class Puzzle1_salaSecreta : MonoBehaviour
         }
 
         Debug.Log("Puzzle de símbolos resolvido corretamente!");
-        symbolResolved = true; // Marca o puzzle de símbolos como resolvido
+        symbolResolved = true;
     }
 
     public void Verificar()
     {
-        checkPerson(); // Verifica o puzzle de pessoas
-        checkSymbol(); // Verifica o puzzle de símbolos
-        // Verifica se ambos os puzzles foram resolvidos
+        checkPerson();
+        checkSymbol();
+
         if (personResolved && symbolResolved)
         {
-            audioSource.PlayOneShot(somAcerto); // Toca o som de acerto
+            audioSource.PlayOneShot(somAcerto);
+            textoFeedback.text = "Correto!";
+            textoFeedback.gameObject.SetActive(true);
+            botaoAvancar.gameObject.SetActive(true);
             Debug.Log("Ambos os puzzles foram resolvidos corretamente!");
-            textoFeedback.text = "Correto!"; // Atualiza o feedback de resposta correta
-            textoFeedback.gameObject.SetActive(true); // Ativa o feedback de resposta correta
-            botaoAvancar.gameObject.SetActive(true); // Ativa o botão de avançar
         }
         else if (personResolved)
         {
-            audioSource.PlayOneShot(somErro); // Toca o som de erro
+            audioSource.PlayOneShot(somErro);
             hudController.PerderVida();
-            textoFeedback.text = "Lembre-se de ordenar os simbolos tambem"; // Atualiza o feedback de resposta incorreta
-            textoFeedback.gameObject.SetActive(true); // Ativa o feedback de resposta incorreta
+            textoFeedback.text = "Lembre-se de ordenar os simbolos também";
+            textoFeedback.gameObject.SetActive(true);
         }
         else if (symbolResolved)
         {
-            audioSource.PlayOneShot(somErro); // Toca o som de erro
+            audioSource.PlayOneShot(somErro);
             hudController.PerderVida();
-            textoFeedback.text = "Lembre-se de ordenar as pessoas tambem"; // Atualiza o feedback de resposta incorreta
-            textoFeedback.gameObject.SetActive(true); // Ativa o feedback de resposta incorreta
+            textoFeedback.text = "Lembre-se de ordenar as pessoas também";
+            textoFeedback.gameObject.SetActive(true);
         }
         else
         {
-            audioSource.PlayOneShot(somErro); // Toca o som de erro
+            audioSource.PlayOneShot(somErro);
             hudController.PerderVida();
-            textoFeedback.text = "Isso não parece estar certo... Lembre-se tudo na vida tem uma ordem!"; // Atualiza o feedback de resposta incorreta
-            textoFeedback.gameObject.SetActive(true); // Ativa o feedback de resposta incorreta
+            textoFeedback.text = "Isso não parece estar certo... Lembre-se tudo na vida tem uma ordem!";
+            textoFeedback.gameObject.SetActive(true);
         }
     }
 
     public void Voltar()
     {
-        SceneManager.LoadScene("Sala Secreta"); // Volta para a sala 2
+        SceneManager.LoadScene("Sala Secreta");
     }
 
     public void Avancar()
     {
-        SceneManager.LoadScene("Sala Secreta"); // Volta para a sala 2
-        puzzle.puzzle1_salaSecreta = true; // Marca o puzzle como resolvido
-        Debug.Log("Puzzle resolvido!"); // Log para depuração
-        Debug.Log(puzzle.puzzle1_salaSecreta); // Log para depuração
-        PuzzleProgressManager.Instance.MarkSolved("Puzzle1_SalaSecreta"); // Marca o puzzle como resolvido no gerenciador de progresso
+        SceneManager.LoadScene("Sala Secreta");
+        puzzle.puzzle1_salaSecreta = true;
+        Debug.Log("Puzzle resolvido!");
+        Debug.Log(puzzle.puzzle1_salaSecreta);
+        PuzzleProgressManager.Instance.MarkSolved("Puzzle1_SalaSecreta");
     }
 
     public void Dicas()
     {
-        dicas.SetActive(true); // Ativa o painel de dicas
+        // Vai para o anúncio antes de mostrar dica
+        PlayerPrefs.SetString("PreviousScene", SceneManager.GetActiveScene().name);
+        PlayerPrefs.SetInt("WatchedAd", 0);
+        SceneManager.LoadScene("Ads");
     }
 
     public void FecharDicas()
     {
-        dicas.SetActive(false); // Desativa o painel de dicas
+        dicas.SetActive(false);
+    }
+
+    // Para retrocompatibilidade se o botão antigo chamar isso
+    public void DicasShow()
+    {
+        Dicas(); // Redireciona para o novo método
     }
 }

@@ -21,31 +21,36 @@ public class Puzzle2_sala4 : MonoBehaviour
     private RectTransform primeiroQuadro = null;
     private RectTransform linhaAtual = null;
 
-    public Button botaoAvancar; // Referência ao botão de avançar
-
-    public TextMeshProUGUI textoFeedback; // Referência ao texto de feedback
+    public Button botaoAvancar;
+    public TextMeshProUGUI textoFeedback;
 
     private PuzzleSaver puzzle;
-    public AudioSource audioSource; // Referência ao AudioSource
-    public AudioClip somErro; // Referência ao som de erro
-    public AudioClip somAcerto; // Referência ao som de acerto
-
     private HudVidaController hudController;
 
-    public DicasController dicasController; // Referência ao controlador de dicas
+    public AudioSource audioSource;
+    public AudioClip somErro;
+    public AudioClip somAcerto;
+
+    public DicasController dicasController;
 
     void Start()
     {
         puzzle = PuzzleSaver.Instance;
         hudController = HudVidaController.Instance;
+
         if (!puzzle.puzzle2_sala4)
         {
-            textoFeedback.gameObject.SetActive(false); // Desativa o feedback de resposta incorreta
-            botaoAvancar.gameObject.SetActive(false); // Desativa o botão de avançar no início
-            ApagarTodasAsLinhas(); // Limpa todas as linhas criadas
+            textoFeedback.gameObject.SetActive(false);
+            botaoAvancar.gameObject.SetActive(false);
+            ApagarTodasAsLinhas();
         }
 
-
+        // Verifica se voltou de anúncio para exibir dica
+        if (PlayerPrefs.GetInt("WatchedAd", 0) == 1)
+        {
+            PlayerPrefs.SetInt("WatchedAd", 0);
+            dicasController.ShowDica();
+        }
     }
 
     void Update()
@@ -60,7 +65,7 @@ public class Puzzle2_sala4 : MonoBehaviour
             AtualizarLinha(startWorld, mouseWorld);
         }
 
-        if (Input.GetMouseButtonDown(1)) // botão direito
+        if (Input.GetMouseButtonDown(1))
         {
             if (linhaAtual != null)
             {
@@ -79,7 +84,6 @@ public class Puzzle2_sala4 : MonoBehaviour
             GameObject linhaGO = Instantiate(linePrefab, canvasRect);
             linhaAtual = linhaGO.GetComponent<RectTransform>();
             linhasCriadas.Add(linhaGO);
-
         }
         else
         {
@@ -88,27 +92,22 @@ public class Puzzle2_sala4 : MonoBehaviour
             primeiroQuadro = null;
             linhaAtual = null;
         }
-
-
     }
 
     private void AtualizarLinha(Vector3 worldStart, Vector3 worldEnd)
     {
-        Vector2 localStart;
-        Vector2 localEnd;
+        if (linhaAtual == null) return;
 
         Vector2 screenStart = Camera.main.WorldToScreenPoint(worldStart);
         Vector2 screenEnd = Camera.main.WorldToScreenPoint(worldEnd);
 
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenStart, Camera.main, out localStart);
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenEnd, Camera.main, out localEnd);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenStart, Camera.main, out Vector2 localStart);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenEnd, Camera.main, out Vector2 localEnd);
 
         Vector2 direction = localEnd - localStart;
         float distance = direction.magnitude;
 
-        if (linhaAtual == null) return;
-
-        linhaAtual.sizeDelta = new Vector2(distance, 4f); // altura fixa da linha
+        linhaAtual.sizeDelta = new Vector2(distance, 4f);
         linhaAtual.anchoredPosition = localStart + direction * 0.5f;
         linhaAtual.localRotation = Quaternion.FromToRotation(Vector3.right, direction);
     }
@@ -116,36 +115,25 @@ public class Puzzle2_sala4 : MonoBehaviour
     public void ApagarTodasAsLinhas()
     {
         foreach (var linha in linhasCriadas)
-        {
             Destroy(linha);
 
-        }
-        for (int i = 0; i < ligacoesFeitas.Count; i++)
-        {
-            ligacoesFeitas.RemoveAt(i);
-            i--;
-        }
         linhasCriadas.Clear();
         ligacoesFeitas.Clear();
     }
-
 
     public void ApagarUltimaLinha()
     {
         if (linhasCriadas.Count > 0)
         {
-            var ultima = linhasCriadas[linhasCriadas.Count - 1];
-            Destroy(ultima);
+            Destroy(linhasCriadas[^1]);
             linhasCriadas.RemoveAt(linhasCriadas.Count - 1);
-
-
         }
+
         if (ligacoesFeitas.Count > 0)
         {
             ligacoesFeitas.RemoveAt(ligacoesFeitas.Count - 1);
         }
     }
-
 
     public void VerificarLigacoes(RectTransform quadro1, RectTransform quadro2, RectTransform quadro3, RectTransform quadro4)
     {
@@ -160,13 +148,10 @@ public class Puzzle2_sala4 : MonoBehaviour
 
         if (ligacoesFeitas.Count != ligacoesCorretas.Count)
         {
-            hudController.PerderVida(); // Remove uma vida
-            Debug.Log($"incorreto qunatidade");
-            Debug.Log($"ligacoesFeitas: {ligacoesFeitas.Count}");
-            Debug.Log($"ligacoesCorretas: {ligacoesCorretas.Count}");
-            audioSource.PlayOneShot(somErro); // Toca o som de erro
-            textoFeedback.text = "Não parece estar certo..."; // Atualiza o feedback de resposta incorreta
-            textoFeedback.gameObject.SetActive(true); // Ativa o feedback de resposta incorreta
+            hudController.PerderVida();
+            audioSource.PlayOneShot(somErro);
+            textoFeedback.text = "Não parece estar certo...";
+            textoFeedback.gameObject.SetActive(true);
             return;
         }
 
@@ -182,22 +167,20 @@ public class Puzzle2_sala4 : MonoBehaviour
                 }
             }
         }
+
         if (corretas == ligacoesCorretas.Count)
         {
-            Debug.Log($"correto");
-            audioSource.PlayOneShot(somAcerto); // Toca o som de acerto
-            textoFeedback.text = "Correto!"; // Atualiza o feedback de resposta correta
-            textoFeedback.gameObject.SetActive(true); // Ativa o feedback de resposta correta
-            botaoAvancar.gameObject.SetActive(true); // Ativa o botão de avançar
-
+            audioSource.PlayOneShot(somAcerto);
+            textoFeedback.text = "Correto!";
+            textoFeedback.gameObject.SetActive(true);
+            botaoAvancar.gameObject.SetActive(true);
         }
         else
         {
-            hudController.PerderVida(); // Remove uma vida
-            Debug.Log($"incorreto");
-            audioSource.PlayOneShot(somErro); // Toca o som de erro
-            textoFeedback.text = "Não parece estar certo..."; // Atualiza o feedback de resposta incorreta
-            textoFeedback.gameObject.SetActive(true); // Ativa o feedback de resposta incorreta
+            hudController.PerderVida();
+            audioSource.PlayOneShot(somErro);
+            textoFeedback.text = "Não parece estar certo...";
+            textoFeedback.gameObject.SetActive(true);
         }
     }
 
@@ -210,20 +193,19 @@ public class Puzzle2_sala4 : MonoBehaviour
     {
         puzzle.puzzle2_sala4 = true;
         PuzzleProgressManager.Instance.MarkSolved("Puzzle2_Sala4");
-        SceneManager.LoadScene("Sala IV"); // Avança para a próxima sala
+        SceneManager.LoadScene("Sala IV");
     }
 
     public void Voltar()
     {
-        SceneManager.LoadScene("Sala IV"); // Volta para a cena inicial
-        // Aqui você pode adicionar a lógica para voltar ao jogo, como fechar o painel do puzzle
-        Debug.Log("Voltar para a parte anterior do jogo!");
+        SceneManager.LoadScene("Sala IV");
     }
 
     public void Dicas()
     {
-        dicasController.ShowDica(); 
+        // Redireciona para anúncio antes de exibir dica
+        PlayerPrefs.SetString("PreviousScene", SceneManager.GetActiveScene().name);
+        PlayerPrefs.SetInt("WatchedAd", 0);
+        SceneManager.LoadScene("Ads");
     }
-
-
 }

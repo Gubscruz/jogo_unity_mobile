@@ -167,6 +167,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Vitoria.unity
     guid: b941398764b58ec4aaedb19c933211ba
+  - enabled: 1
+    path: Assets/Scenes/Ads.unity
+    guid: 595f2b0dca2a5d241b801c53c7d474b5
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
