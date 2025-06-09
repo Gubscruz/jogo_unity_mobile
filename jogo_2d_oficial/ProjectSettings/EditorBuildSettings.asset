@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 31576edb0857b2f449e80d8a791f337d
   - enabled: 1
+    path: Assets/Scenes/Sala I.unity
+    guid: db2c198702d943a459d510206a4182e1
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
@@ -23,9 +26,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/rafa-sala2-puzzle2.unity
     guid: 03f7ef42b12f0f04e83cfac545017870
-  - enabled: 1
-    path: Assets/Scenes/Sala I.unity
-    guid: db2c198702d943a459d510206a4182e1
   - enabled: 1
     path: Assets/Scenes/Config.unity
     guid: f72b114089ec2ff4faa7cc0ef6065b15
